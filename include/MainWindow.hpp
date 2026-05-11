@@ -27,6 +27,9 @@ private slots:
     void on_btnAdaptive_clicked();
     void updateDisplay();
     void on_sliderThresh_valueChanged(int value);
+    void on_buttonGlobalEq_clicked();
+    void on_sliderClipLimit_valueChanged(int value);
+    void on_sliderGridSize_valueChanged(int value);
 
 
 private:

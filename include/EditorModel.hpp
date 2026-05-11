@@ -12,6 +12,9 @@ public:
    bool loadImage(const std::string& path);
    void applyThreshold(int method, int threshValue);
 
+   void applyGlobalEqualization();
+   void applyCLAHE(double clipLimit, int gridSize);
+
 };
 
 #endif
