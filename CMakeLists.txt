@@ -18,7 +18,9 @@ set(TS_FILES imageEditorErasmus_fr_FR.ts)
 set(PROJECT_SOURCES
         src/main.cpp
         src/MainWindow.cpp
+        src/EditorModel.cpp
         include/MainWindow.hpp
+        include/EditorModel.hpp
         src/mainwindow.ui
         ${TS_FILES}
 )
