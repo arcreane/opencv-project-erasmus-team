@@ -1,115 +1,273 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
-<class>MainWindow</class>
-<widget class="QMainWindow" name="MainWindow">
- <property name="geometry">
-  <rect>
-   <x>0</x>
-   <y>0</y>
-   <width>800</width>
-   <height>600</height>
-  </rect>
- </property>
- <property name="windowTitle">
-  <string>MainWindow</string>
- </property>
- <widget class="QWidget" name="centralwidget">
-  <widget class="QLabel" name="imageLabel">
-   <property name="geometry">
-    <rect>
-     <x>37</x>
-     <y>10</y>
-     <width>611</width>
-     <height>261</height>
-    </rect>
-   </property>
-   <property name="text">
-    <string/>
-   </property>
-  </widget>
-  <widget class="QPushButton" name="btnBinary">
-   <property name="geometry">
-    <rect>
-     <x>10</x>
-     <y>280</y>
-     <width>100</width>
-     <height>32</height>
-    </rect>
-   </property>
-   <property name="text">
-    <string>btnBinary</string>
-   </property>
-  </widget>
-  <widget class="QPushButton" name="btnOtsu">
-   <property name="geometry">
-    <rect>
-     <x>120</x>
-     <y>280</y>
-     <width>100</width>
-     <height>32</height>
-    </rect>
-   </property>
-   <property name="text">
-    <string>btnOtsu</string>
-   </property>
-  </widget>
-  <widget class="QPushButton" name="btnAdaptive">
-   <property name="geometry">
-    <rect>
-     <x>230</x>
-     <y>280</y>
-     <width>100</width>
-     <height>32</height>
-    </rect>
-   </property>
-   <property name="text">
-    <string>btnAdaptive</string>
-   </property>
-  </widget>
-  <widget class="QSlider" name="sliderThresh">
-   <property name="geometry">
-    <rect>
-     <x>350</x>
-     <y>280</y>
-     <width>160</width>
-     <height>25</height>
-    </rect>
-   </property>
-   <property name="orientation">
-    <enum>Qt::Orientation::Horizontal</enum>
-   </property>
-  </widget>
- </widget>
- <widget class="QStatusBar" name="statusbar"/>
- <widget class="QMenuBar" name="menubar">
+ <class>MainWindow</class>
+ <widget class="QMainWindow" name="MainWindow">
   <property name="geometry">
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>800</width>
-    <height>33</height>
+    <width>808</width>
+    <height>591</height>
    </rect>
   </property>
-  <widget class="QMenu" name="menuFile">
-   <property name="title">
-    <string>File</string>
-   </property>
-   <addaction name="actionOpen"/>
-   <addaction name="actionSave"/>
+  <property name="windowTitle">
+   <string>MainWindow</string>
+  </property>
+  <widget class="QWidget" name="centralwidget">
+   <layout class="QHBoxLayout" name="horizontalLayout_2">
+    <item>
+     <widget class="QLabel" name="imageLabel">
+      <property name="sizePolicy">
+       <sizepolicy hsizetype="Ignored" vsizetype="Ignored">
+        <horstretch>0</horstretch>
+        <verstretch>0</verstretch>
+       </sizepolicy>
+      </property>
+      <property name="minimumSize">
+       <size>
+        <width>400</width>
+        <height>300</height>
+       </size>
+      </property>
+      <property name="maximumSize">
+       <size>
+        <width>650</width>
+        <height>500</height>
+       </size>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+      <property name="scaledContents">
+       <bool>false</bool>
+      </property>
+     </widget>
+    </item>
+    <item>
+     <widget class="QWidget" name="sidebarTools" native="true">
+      <property name="minimumSize">
+       <size>
+        <width>360</width>
+        <height>0</height>
+       </size>
+      </property>
+      <property name="maximumSize">
+       <size>
+        <width>370</width>
+        <height>16777215</height>
+       </size>
+      </property>
+      <widget class="QGroupBox" name="groupBinarization">
+       <property name="geometry">
+        <rect>
+         <x>20</x>
+         <y>30</y>
+         <width>341</width>
+         <height>91</height>
+        </rect>
+       </property>
+       <property name="title">
+        <string>Thresholding</string>
+       </property>
+       <widget class="QPushButton" name="btnBinary">
+        <property name="geometry">
+         <rect>
+          <x>10</x>
+          <y>20</y>
+          <width>100</width>
+          <height>32</height>
+         </rect>
+        </property>
+        <property name="text">
+         <string>btnBinary</string>
+        </property>
+       </widget>
+       <widget class="QPushButton" name="btnOtsu">
+        <property name="geometry">
+         <rect>
+          <x>120</x>
+          <y>20</y>
+          <width>100</width>
+          <height>32</height>
+         </rect>
+        </property>
+        <property name="text">
+         <string>btnOtsu</string>
+        </property>
+       </widget>
+       <widget class="QPushButton" name="btnAdaptive">
+        <property name="geometry">
+         <rect>
+          <x>230</x>
+          <y>20</y>
+          <width>100</width>
+          <height>32</height>
+         </rect>
+        </property>
+        <property name="text">
+         <string>btnAdaptive</string>
+        </property>
+       </widget>
+       <widget class="QWidget" name="">
+        <property name="geometry">
+         <rect>
+          <x>10</x>
+          <y>50</y>
+          <width>321</width>
+          <height>31</height>
+         </rect>
+        </property>
+        <layout class="QHBoxLayout" name="horizontalLayout">
+         <item>
+          <widget class="QLabel" name="label">
+           <property name="text">
+            <string>Treshold value:</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QSlider" name="sliderThresh">
+           <property name="orientation">
+            <enum>Qt::Orientation::Horizontal</enum>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QLabel" name="labelThreshValue">
+           <property name="text">
+            <string>127</string>
+           </property>
+          </widget>
+         </item>
+        </layout>
+       </widget>
+      </widget>
+      <widget class="QGroupBox" name="groupContrast">
+       <property name="geometry">
+        <rect>
+         <x>20</x>
+         <y>130</y>
+         <width>341</width>
+         <height>112</height>
+        </rect>
+       </property>
+       <property name="title">
+        <string>Histogram equalization </string>
+       </property>
+       <layout class="QVBoxLayout" name="verticalLayout">
+        <item>
+         <widget class="QPushButton" name="buttonGlobalEq">
+          <property name="text">
+           <string>Global Equalization</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <layout class="QHBoxLayout" name="horizontalLayout_3">
+          <item>
+           <widget class="QLabel" name="label_2">
+            <property name="text">
+             <string>Contrast strength:</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QSlider" name="sliderClipLimit">
+            <property name="minimum">
+             <number>1</number>
+            </property>
+            <property name="maximum">
+             <number>100</number>
+            </property>
+            <property name="value">
+             <number>40</number>
+            </property>
+            <property name="orientation">
+             <enum>Qt::Orientation::Horizontal</enum>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QLabel" name="labelClipValue">
+            <property name="text">
+             <string>2.0</string>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </item>
+        <item>
+         <layout class="QHBoxLayout" name="horizontalLayout_4">
+          <item>
+           <widget class="QLabel" name="label_3">
+            <property name="text">
+             <string>Block size:</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QSlider" name="sliderGridSize">
+            <property name="minimum">
+             <number>2</number>
+            </property>
+            <property name="maximum">
+             <number>32</number>
+            </property>
+            <property name="value">
+             <number>8</number>
+            </property>
+            <property name="orientation">
+             <enum>Qt::Orientation::Horizontal</enum>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QLabel" name="labelGridValue">
+            <property name="text">
+             <string>8x8</string>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </item>
+       </layout>
+      </widget>
+     </widget>
+    </item>
+   </layout>
+   <zorder>sidebarTools</zorder>
+   <zorder>imageLabel</zorder>
   </widget>
-  <addaction name="menuFile"/>
+  <widget class="QStatusBar" name="statusbar"/>
+  <widget class="QMenuBar" name="menubar">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>808</width>
+     <height>33</height>
+    </rect>
+   </property>
+   <widget class="QMenu" name="menuFile">
+    <property name="title">
+     <string>File</string>
+    </property>
+    <addaction name="actionOpen"/>
+    <addaction name="actionSave"/>
+   </widget>
+   <addaction name="menuFile"/>
+  </widget>
+  <action name="actionOpen">
+   <property name="text">
+    <string>Open</string>
+   </property>
+  </action>
+  <action name="actionSave">
+   <property name="text">
+    <string>Save</string>
+   </property>
+  </action>
  </widget>
- <action name="actionOpen">
-  <property name="text">
-   <string>Open</string>
-  </property>
- </action>
- <action name="actionSave">
-  <property name="text">
-   <string>Save</string>
-  </property>
- </action>
-</widget>
-<resources/>
-<connections/>
+ <resources/>
+ <connections/>
 </ui>
