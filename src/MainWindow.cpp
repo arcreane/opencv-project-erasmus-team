@@ -52,3 +52,48 @@ void MainWindow::on_actionSave_triggered()
        }
    }
 }
+
+void MainWindow::updateDisplay() {
+   if (model->processedImage.empty()) return;
+
+
+   QImage img((const unsigned char*)(model->processedImage.data),
+              model->processedImage.cols, model->processedImage.rows,
+              model->processedImage.step, QImage::Format_Grayscale8);
+
+
+   ui->imageLabel->setPixmap(QPixmap::fromImage(img));
+   ui->imageLabel->setScaledContents(true);
+}
+
+
+void MainWindow::on_btnBinary_clicked()
+{
+   int val = ui->sliderThresh->value();
+   model->applyThreshold(0, val);
+   updateDisplay();
+}
+
+
+void MainWindow::on_btnOtsu_clicked()
+{
+   model->applyThreshold(1, 0);
+   updateDisplay();
+}
+
+
+void MainWindow::on_btnAdaptive_clicked()
+{
+   int val = ui->sliderThresh->value();
+   model->applyThreshold(2, val);
+   updateDisplay();
+}
+
+
+void MainWindow::on_sliderThresh_valueChanged(int value)
+{
+   model->applyThreshold(0, value);
+   updateDisplay();
+}
+
+

@@ -10,6 +10,8 @@ public:
     cv::Mat processedImage;
 
    bool loadImage(const std::string& path);
+   void applyThreshold(int method, int threshValue);
+
 };
 
 #endif

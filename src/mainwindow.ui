@@ -1,65 +1,115 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>MainWindow</class>
- <widget class="QMainWindow" name="MainWindow">
+<class>MainWindow</class>
+<widget class="QMainWindow" name="MainWindow">
+ <property name="geometry">
+  <rect>
+   <x>0</x>
+   <y>0</y>
+   <width>800</width>
+   <height>600</height>
+  </rect>
+ </property>
+ <property name="windowTitle">
+  <string>MainWindow</string>
+ </property>
+ <widget class="QWidget" name="centralwidget">
+  <widget class="QLabel" name="imageLabel">
+   <property name="geometry">
+    <rect>
+     <x>37</x>
+     <y>10</y>
+     <width>611</width>
+     <height>261</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string/>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="btnBinary">
+   <property name="geometry">
+    <rect>
+     <x>10</x>
+     <y>280</y>
+     <width>100</width>
+     <height>32</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>btnBinary</string>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="btnOtsu">
+   <property name="geometry">
+    <rect>
+     <x>120</x>
+     <y>280</y>
+     <width>100</width>
+     <height>32</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>btnOtsu</string>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="btnAdaptive">
+   <property name="geometry">
+    <rect>
+     <x>230</x>
+     <y>280</y>
+     <width>100</width>
+     <height>32</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>btnAdaptive</string>
+   </property>
+  </widget>
+  <widget class="QSlider" name="sliderThresh">
+   <property name="geometry">
+    <rect>
+     <x>350</x>
+     <y>280</y>
+     <width>160</width>
+     <height>25</height>
+    </rect>
+   </property>
+   <property name="orientation">
+    <enum>Qt::Orientation::Horizontal</enum>
+   </property>
+  </widget>
+ </widget>
+ <widget class="QStatusBar" name="statusbar"/>
+ <widget class="QMenuBar" name="menubar">
   <property name="geometry">
    <rect>
     <x>0</x>
     <y>0</y>
     <width>800</width>
-    <height>600</height>
+    <height>33</height>
    </rect>
   </property>
-  <property name="windowTitle">
-   <string>Image Editor Erasmus</string>
-  </property>
-  <widget class="QWidget" name="centralwidget">
-   <widget class="QLabel" name="imageLabel">
-    <property name="geometry">
-     <rect>
-      <x>10</x>
-      <y>10</y>
-      <width>780</width>
-      <height>400</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>Proszę wczytać obraz...</string>
-    </property>
-    <property name="alignment">
-     <set>Qt::AlignCenter</set>
-    </property>
-   </widget>
+  <widget class="QMenu" name="menuFile">
+   <property name="title">
+    <string>File</string>
+   </property>
+   <addaction name="actionOpen"/>
+   <addaction name="actionSave"/>
   </widget>
-  <widget class="QMenuBar" name="menubar">
-   <property name="geometry">
-    <rect>
-     <x>0</x>
-     <y>0</y>
-     <width>800</width>
-     <height>22</height>
-    </rect>
-   </property>
-   <widget class="QMenu" name="menuFile">
-    <property name="title">
-     <string>File</string>
-    </property>
-    <addaction name="actionOpen"/>
-    <addaction name="actionSave"/>
-   </widget>
-   <addaction name="menuFile"/>
-  </widget>
-  <action name="actionOpen">
-   <property name="text">
-    <string>Open</string>
-   </property>
-  </action>
-  <action name="actionSave">
-   <property name="text">
-    <string>Save</string>
-   </property>
-  </action>
+  <addaction name="menuFile"/>
  </widget>
- <resources/>
- <connections/>
+ <action name="actionOpen">
+  <property name="text">
+   <string>Open</string>
+  </property>
+ </action>
+ <action name="actionSave">
+  <property name="text">
+   <string>Save</string>
+  </property>
+ </action>
+</widget>
+<resources/>
+<connections/>
 </ui>
