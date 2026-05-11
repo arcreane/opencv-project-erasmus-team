@@ -30,6 +30,13 @@ private slots:
     void on_buttonGlobalEq_clicked();
     void on_sliderClipLimit_valueChanged(int value);
     void on_sliderGridSize_valueChanged(int value);
+    void on_btnErosion_clicked();
+    void on_btnDilation_clicked();
+    void on_btnNoise_clicked();
+    void on_btnClosing_clicked();
+    void on_btnGradient_clicked();
+    void on_sliderMorphSize_valueChanged(int value);
+    void on_comboKernelShape_currentIndexChanged(int index);
 
 
 private:

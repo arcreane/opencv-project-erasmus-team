@@ -18,6 +18,8 @@ MainWindow::MainWindow(QWidget* parent)
     ui->labelThreshValue->setText("127");
     ui->labelClipValue->setText("2.0");
     ui->labelGridValue->setText("8x8");
+    ui->labelMorphValue->setText("3x3");
+    ui->comboKernelShape->setCurrentIndex(0);
 }
 
 MainWindow::~MainWindow()
@@ -143,5 +145,62 @@ void MainWindow::on_sliderGridSize_valueChanged(int value)
     ui->labelGridValue->setText(QString("%1x%1").arg(value));
 
     model->applyCLAHE(limit, value);
+    updateDisplay();
+}
+
+void MainWindow::on_btnErosion_clicked()
+{
+    int val = ui->sliderMorphSize->value();
+    int shape = ui->comboKernelShape->currentIndex();
+    model->applyMorphology(0, val, shape);
+    updateDisplay();
+}
+
+void MainWindow::on_btnDilation_clicked()
+{
+    int val = ui->sliderMorphSize->value();
+    int shape = ui->comboKernelShape->currentIndex();
+    model->applyMorphology(1, val, shape);
+    updateDisplay();
+}
+
+void MainWindow::on_btnNoise_clicked()
+{
+    int val = ui->sliderMorphSize->value();
+    int shape = ui->comboKernelShape->currentIndex();
+    model->applyMorphology(2, val, shape);
+    updateDisplay();
+}
+
+void MainWindow::on_btnClosing_clicked()
+{
+    int val = ui->sliderMorphSize->value();
+    int shape = ui->comboKernelShape->currentIndex();
+    model->applyMorphology(3, val, shape);
+    updateDisplay();
+}
+
+void MainWindow::on_btnGradient_clicked()
+{
+    int val = ui->sliderMorphSize->value();
+    int shape = ui->comboKernelShape->currentIndex();
+    model->applyMorphology(4, val, shape);
+    updateDisplay();
+}
+
+void MainWindow::on_sliderMorphSize_valueChanged(int value)
+{
+    int actualSize = 2 * value + 1;
+    ui->labelMorphValue->setText(QString("%1x%1").arg(actualSize));
+
+    int shape = ui->comboKernelShape->currentIndex();
+    model->applyMorphology(2, value, shape);
+    updateDisplay();
+}
+
+void MainWindow::on_comboKernelShape_currentIndexChanged(int index)
+{
+    int val = ui->sliderMorphSize->value();
+    model->applyMorphology(2, val, index);
     updateDisplay();
 }

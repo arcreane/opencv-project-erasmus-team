@@ -15,6 +15,8 @@ public:
    void applyGlobalEqualization();
    void applyCLAHE(double clipLimit, int gridSize);
 
+   void applyMorphology(int method, int kernelSize, int shapeType);
+
 };
 
 #endif
