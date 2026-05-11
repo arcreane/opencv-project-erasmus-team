@@ -1,4 +1,4 @@
-#include "mainwindow.h"
+#include "MainWindow.hpp"
 
 #include <QApplication>
 #include <QLocale>
@@ -18,6 +18,7 @@ int main(int argc, char *argv[])
         }
     }
     MainWindow w;
+    w.setWindowTitle("Multimedia Applications Project 2026");
     w.show();
     return QCoreApplication::exec();
 }
