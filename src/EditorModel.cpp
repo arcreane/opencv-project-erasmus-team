@@ -84,3 +84,27 @@ void EditorModel::applyMorphology(int method, int kernelSize, int shapeType)
         cv::morphologyEx(gray, processedImage, cv::MORPH_GRADIENT, element);
     }
 }
+
+void EditorModel::applyGrabCut(cv::Rect rectangle) {
+    if (currentImage.empty()) return;
+
+    cv::Mat mask;
+    cv::Mat bgdModel, fgdModel;
+
+    rectangle.x = std::max(0, rectangle.x);
+    rectangle.y = std::max(0, rectangle.y);
+    rectangle.width = std::min(rectangle.width, currentImage.cols - rectangle.x);
+    rectangle.height = std::min(rectangle.height, currentImage.rows - rectangle.y);
+
+    if (rectangle.width <= 5 || rectangle.height <= 5) return;
+
+    cv::grabCut(currentImage, mask, rectangle, bgdModel, fgdModel, 5, cv::GC_INIT_WITH_RECT);
+
+    cv::Mat binaryMask = (mask == cv::GC_FGD) | (mask == cv::GC_PR_FGD);
+
+    cv::Mat colorResult = cv::Mat::zeros(currentImage.size(), currentImage.type());
+    currentImage.copyTo(colorResult, binaryMask);
+
+    processedImage = colorResult;
+
+}

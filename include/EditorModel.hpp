@@ -16,6 +16,8 @@ public:
    void applyCLAHE(double clipLimit, int gridSize);
 
    void applyMorphology(int method, int kernelSize, int shapeType);
+   
+   void applyGrabCut(cv::Rect rectangle);
 
 };
 
