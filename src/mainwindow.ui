@@ -380,7 +380,14 @@
     <addaction name="actionOpen"/>
     <addaction name="actionSave"/>
    </widget>
+   <widget class="QMenu" name="menuAdvanced_Features">
+    <property name="title">
+     <string>Advanced Features</string>
+    </property>
+    <addaction name="actionGrabCut_Segmnetation"/>
+   </widget>
    <addaction name="menuFile"/>
+   <addaction name="menuAdvanced_Features"/>
   </widget>
   <action name="actionOpen">
    <property name="text">
@@ -390,6 +397,11 @@
   <action name="actionSave">
    <property name="text">
     <string>Save</string>
+   </property>
+  </action>
+  <action name="actionGrabCut_Segmnetation">
+   <property name="text">
+    <string>GrabCut Segmnetation</string>
    </property>
   </action>
  </widget>

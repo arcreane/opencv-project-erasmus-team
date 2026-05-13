@@ -20,6 +20,16 @@ MainWindow::MainWindow(QWidget* parent)
     ui->labelGridValue->setText("8x8");
     ui->labelMorphValue->setText("3x3");
     ui->comboKernelShape->setCurrentIndex(0);
+
+    ui->imageLabel->installEventFilter(this);
+
+    ui->imageLabel->setAttribute(Qt::WA_TransparentForMouseEvents);
+
+    connect(ui->actionGrabCut_Segmnetation, &QAction::triggered, this, [this]()
+        {
+            isGrabCutMode = true;
+            ui->imageLabel->setCursor(Qt::CrossCursor);
+        });
 }
 
 MainWindow::~MainWindow()
@@ -76,9 +86,20 @@ void MainWindow::on_actionSave_triggered()
 void MainWindow::updateDisplay() {
     if (model->processedImage.empty()) return;
 
-    QImage img((const unsigned char*)(model->processedImage.data),
-        model->processedImage.cols, model->processedImage.rows,
-        model->processedImage.step, QImage::Format_Grayscale8);
+    QImage img;
+
+    if (model->processedImage.channels() == 3) {
+        img = QImage((const unsigned char*)(model->processedImage.data),
+            model->processedImage.cols, model->processedImage.rows,
+            model->processedImage.step, QImage::Format_RGB888);
+
+        img = img.rgbSwapped();
+    }
+    else {
+        img = QImage((const unsigned char*)(model->processedImage.data),
+            model->processedImage.cols, model->processedImage.rows,
+            model->processedImage.step, QImage::Format_Grayscale8);
+    }
 
     QPixmap originalPixmap = QPixmap::fromImage(img);
 
@@ -203,4 +224,86 @@ void MainWindow::on_comboKernelShape_currentIndexChanged(int index)
     int val = ui->sliderMorphSize->value();
     model->applyMorphology(2, val, index);
     updateDisplay();
+}
+
+void MainWindow::mousePressEvent(QMouseEvent* event) {
+    if (!isGrabCutMode) return;
+
+    QPoint labelPos = ui->imageLabel->mapFromGlobal(QCursor::pos());
+
+    if (ui->imageLabel->rect().contains(labelPos)) {
+        isDrawingRect = true;
+        startPoint = labelPos;
+        endPoint = startPoint;
+    }
+}
+
+void MainWindow::mouseMoveEvent(QMouseEvent* event) {
+    if (!isGrabCutMode || !isDrawingRect) return;
+
+    endPoint = ui->imageLabel->mapFromGlobal(QCursor::pos());
+    updateDisplayWithRect();
+}
+
+void MainWindow::mouseReleaseEvent(QMouseEvent* event) {
+    if (!isGrabCutMode || !isDrawingRect) return;
+
+    isDrawingRect = false;
+    endPoint = ui->imageLabel->mapFromGlobal(QCursor::pos());
+
+    int displayX = std::min(startPoint.x(), endPoint.x());
+    int displayY = std::min(startPoint.y(), endPoint.y());
+    int displayW = std::abs(startPoint.x() - endPoint.x());
+    int displayH = std::abs(startPoint.y() - endPoint.y());
+
+    if (displayW > 10 && displayH > 10) {
+        double scaleX = (double)model->currentImage.cols / ui->imageLabel->width();
+        double scaleY = (double)model->currentImage.rows / ui->imageLabel->height();
+
+        int realX = displayX * scaleX;
+        int realY = displayY * scaleY;
+        int realW = displayW * scaleX;
+        int realH = displayH * scaleY;
+
+        grabCutRect = cv::Rect(realX, realY, realW, realH);
+
+        model->applyGrabCut(grabCutRect);
+
+        updateDisplay();
+
+        isGrabCutMode = false;
+    }
+    else {
+        on_actionOpen_triggered();
+    }
+}
+
+void MainWindow::updateDisplayWithRect() {
+    if (model->currentImage.empty()) return;
+
+    QImage img((const unsigned char*)(model->currentImage.data),
+        model->currentImage.cols, model->currentImage.rows,
+        model->currentImage.step, QImage::Format_RGB888);
+
+    QPixmap originalPixmap = QPixmap::fromImage(img.rgbSwapped());
+
+    int w = ui->imageLabel->contentsRect().width();
+    int h = ui->imageLabel->contentsRect().height();
+    if (w < 100) w = 600;
+    if (h < 100) h = 500;
+
+    QPixmap scaledPixmap = originalPixmap.scaled(w, h, Qt::KeepAspectRatio, Qt::SmoothTransformation);
+
+    QImage drawingImage = scaledPixmap.toImage();
+    QPainter painter(&drawingImage);
+    painter.setPen(QPen(Qt::red, 2, Qt::DashLine));
+
+    int x = std::min(startPoint.x(), endPoint.x());
+    int y = std::min(startPoint.y(), endPoint.y());
+    int width = std::abs(startPoint.x() - endPoint.x());
+    int height = std::abs(startPoint.y() - endPoint.y());
+
+    painter.drawRect(x, y, width, height);
+
+    ui->imageLabel->setPixmap(QPixmap::fromImage(drawingImage));
 }

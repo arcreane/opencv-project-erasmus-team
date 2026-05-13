@@ -2,8 +2,9 @@
 #define MAINWINDOW_HPP
 
 #include "EditorModel.hpp"
-
 #include <QMainWindow>
+#include <QMouseEvent>
+#include <QPainter>
 
 QT_BEGIN_NAMESPACE
 namespace Ui {
@@ -42,6 +43,18 @@ private slots:
 private:
     Ui::MainWindow *ui;
     EditorModel *model;
+
+    bool isGrabCutMode = false;
+    bool isDrawingRect = false;
+    QPoint startPoint;
+    QPoint endPoint;
+    cv::Rect grabCutRect;
+
+    void mousePressEvent(QMouseEvent* event) override;
+    void mouseMoveEvent(QMouseEvent* event) override;
+    void mouseReleaseEvent(QMouseEvent* event) override;
+
+    void updateDisplayWithRect();
 
 };
 #endif 
