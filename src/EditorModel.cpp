@@ -49,16 +49,18 @@ void EditorModel::applyCLAHE(double clipLimit, int gridSize) {
     clahe->apply(gray, processedImage);
 }
 
-void EditorModel::applyMorphology(int method, int kernelSize, int shapeType) 
+void EditorModel::applyMorphology(int method, int kernelSize, int shapeType)
 {
     if (currentImage.empty()) return;
 
-    cv::Mat gray;
-    if (currentImage.channels() == 3) {
-        cv::cvtColor(currentImage, gray, cv::COLOR_BGR2GRAY);
+    cv::Mat sourceForMorph;
+
+    if (!processedImage.empty() && processedImage.channels() == 1) {
+        sourceForMorph = processedImage.clone();
     }
+
     else {
-        gray = currentImage.clone();
+        cv::cvtColor(currentImage, sourceForMorph, cv::COLOR_BGR2GRAY);
     }
 
     int cvShape = cv::MORPH_RECT;
@@ -69,42 +71,42 @@ void EditorModel::applyMorphology(int method, int kernelSize, int shapeType)
     cv::Mat element = cv::getStructuringElement(cvShape, cv::Size(size, size));
 
     if (method == 0) {
-        cv::erode(gray, processedImage, element);
+        cv::erode(sourceForMorph, processedImage, element);
     }
     else if (method == 1) {
-        cv::dilate(gray, processedImage, element);
+        cv::dilate(sourceForMorph, processedImage, element);
     }
     else if (method == 2) {
-        cv::morphologyEx(gray, processedImage, cv::MORPH_OPEN, element);
+        cv::morphologyEx(sourceForMorph, processedImage, cv::MORPH_OPEN, element);
     }
     else if (method == 3) {
-        cv::morphologyEx(gray, processedImage, cv::MORPH_CLOSE, element);
+        cv::morphologyEx(sourceForMorph, processedImage, cv::MORPH_CLOSE, element);
     }
     else if (method == 4) {
-        cv::morphologyEx(gray, processedImage, cv::MORPH_GRADIENT, element);
+        cv::morphologyEx(sourceForMorph, processedImage, cv::MORPH_GRADIENT, element);
     }
 }
 
 void EditorModel::applyGrabCut(cv::Rect rectangle) {
     if (currentImage.empty()) return;
 
-    cv::Mat mask;
-    cv::Mat bgdModel, fgdModel;
-
     rectangle.x = std::max(0, rectangle.x);
     rectangle.y = std::max(0, rectangle.y);
     rectangle.width = std::min(rectangle.width, currentImage.cols - rectangle.x);
     rectangle.height = std::min(rectangle.height, currentImage.rows - rectangle.y);
 
-    if (rectangle.width <= 5 || rectangle.height <= 5) return;
+    if (rectangle.width <= 10 || rectangle.height <= 10) return;
+
+    cv::Mat mask;
+    cv::Mat bgdModel, fgdModel;
 
     cv::grabCut(currentImage, mask, rectangle, bgdModel, fgdModel, 5, cv::GC_INIT_WITH_RECT);
 
     cv::Mat binaryMask = (mask == cv::GC_FGD) | (mask == cv::GC_PR_FGD);
 
     cv::Mat colorResult = cv::Mat::zeros(currentImage.size(), currentImage.type());
+
     currentImage.copyTo(colorResult, binaryMask);
 
     processedImage = colorResult;
-
 }

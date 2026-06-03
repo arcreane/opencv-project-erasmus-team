@@ -41,8 +41,8 @@ private slots:
 
 
 private:
-    Ui::MainWindow *ui;
-    EditorModel *model;
+    Ui::MainWindow* ui;
+    EditorModel* model;
 
     bool isGrabCutMode = false;
     bool isDrawingRect = false;
@@ -50,11 +50,7 @@ private:
     QPoint endPoint;
     cv::Rect grabCutRect;
 
-    void mousePressEvent(QMouseEvent* event) override;
-    void mouseMoveEvent(QMouseEvent* event) override;
-    void mouseReleaseEvent(QMouseEvent* event) override;
-
+    bool eventFilter(QObject* watched, QEvent* event) override;
     void updateDisplayWithRect();
-
 };
-#endif 
+#endif
