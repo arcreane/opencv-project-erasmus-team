@@ -117,6 +117,13 @@ void MainWindow::updateDisplay() {
     ui->imageLabel->setPixmap(scaledPixmap);
 }
 
+void MainWindow::on_btnApplyWB_clicked()
+{
+    int index = ui->comboWBMethod->currentIndex();
+    model->applyWhiteBalance(index);
+    updateDisplay();
+}
+
 void MainWindow::on_btnBinary_clicked()
 {
     int val = ui->sliderThresh->value();

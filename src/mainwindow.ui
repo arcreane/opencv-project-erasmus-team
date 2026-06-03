@@ -357,6 +357,53 @@
         </item>
        </layout>
       </widget>
+      <widget class="QGroupBox" name="groupWhiteBalance">
+       <property name="geometry">
+        <rect>
+         <x>20</x>
+         <y>380</y>
+         <width>341</width>
+         <height>95</height>
+        </rect>
+       </property>
+       <property name="title">
+        <string>White Balance</string>
+       </property>
+       <layout class="QVBoxLayout" name="verticalLayout_WB">
+        <item>
+         <layout class="QHBoxLayout" name="horizontalLayout_WB_Method">
+          <item>
+           <widget class="QLabel" name="labelWBMethod">
+            <property name="text">
+             <string>Method:</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QComboBox" name="comboWBMethod">
+            <item>
+             <property name="text">
+              <string>Gray World</string>
+             </property>
+            </item>
+            <item>
+             <property name="text">
+              <string>Simple</string>
+             </property>
+            </item>
+           </widget>
+          </item>
+         </layout>
+        </item>
+        <item>
+         <widget class="QPushButton" name="btnApplyWB">
+          <property name="text">
+           <string>Apply White Balance</string>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </widget>
      </widget>
     </item>
    </layout>

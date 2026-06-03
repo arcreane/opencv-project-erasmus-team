@@ -1,4 +1,5 @@
  #include "EditorModel.hpp"
+#include <opencv2/xphoto.hpp>
 
 bool EditorModel::loadImage(const std::string& path) {
    currentImage = cv::imread(path);
@@ -109,4 +110,22 @@ void EditorModel::applyGrabCut(cv::Rect rectangle) {
     currentImage.copyTo(colorResult, binaryMask);
 
     processedImage = colorResult;
+}
+
+void EditorModel::applyWhiteBalance(int method) {
+    if (currentImage.empty()) return;
+
+    if (currentImage.channels() != 3) {
+        processedImage = currentImage.clone();
+        return;
+    }
+
+    if (method == 0) {
+        cv::Ptr<cv::xphoto::WhiteBalancer> wb = cv::xphoto::createGrayworldWB();
+        wb->balanceWhite(currentImage, processedImage);
+    }
+    else if (method == 1) {
+        cv::Ptr<cv::xphoto::WhiteBalancer> wb = cv::xphoto::createSimpleWB();
+        wb->balanceWhite(currentImage, processedImage);
+    }
 }
