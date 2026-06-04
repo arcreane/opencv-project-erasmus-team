@@ -136,20 +136,20 @@ void MainWindow::on_sliderK_valueChanged(int value)
     ui->labelKValue->setText(QString::number(value));
 }
 
-void MainWindow::on_btnBinary_clicked()
+void MainWindow::on_Binary_clicked()
 {
     int val = ui->sliderThresh->value();
     model->applyThreshold(0, val);
     updateDisplay();
 }
 
-void MainWindow::on_btnOtsu_clicked()
+void MainWindow::on_Otsu_clicked()
 {
     model->applyThreshold(1, 0);
     updateDisplay();
 }
 
-void MainWindow::on_btnAdaptive_clicked()
+void MainWindow::on_Adaptive_clicked()
 {
     int val = ui->sliderThresh->value();
     model->applyThreshold(2, val);

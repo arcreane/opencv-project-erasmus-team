@@ -69,7 +69,7 @@
        <property name="title">
         <string>Thresholding</string>
        </property>
-       <widget class="QPushButton" name="btnBinary">
+       <widget class="QPushButton" name="Binary">
         <property name="geometry">
          <rect>
           <x>10</x>
@@ -82,7 +82,7 @@
          <string>btnBinary</string>
         </property>
        </widget>
-       <widget class="QPushButton" name="btnOtsu">
+       <widget class="QPushButton" name="Otsu">
         <property name="geometry">
          <rect>
           <x>120</x>
@@ -95,7 +95,7 @@
          <string>btnOtsu</string>
         </property>
        </widget>
-       <widget class="QPushButton" name="btnAdaptive">
+       <widget class="QPushButton" name="Adaptive">
         <property name="geometry">
          <rect>
           <x>230</x>
