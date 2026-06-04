@@ -19,6 +19,8 @@ public:
   void applyGrabCut(cv::Rect rectangle);
 
   void applyWhiteBalance(int method);
+
+  void applyKMeans(int k);
 };
 
 #endif

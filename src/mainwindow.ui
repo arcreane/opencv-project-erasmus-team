@@ -404,6 +404,62 @@
         </item>
        </layout>
       </widget>
+      <widget class="QGroupBox" name="groupKMeans">
+       <property name="geometry">
+        <rect>
+         <x>20</x>
+         <y>520</y>
+         <width>341</width>
+         <height>120</height>
+        </rect>
+       </property>
+       <property name="title">
+        <string>K-Means Color Segmentation</string>
+       </property>
+       <layout class="QVBoxLayout" name="verticalLayout_KMeans">
+        <item>
+         <layout class="QHBoxLayout" name="horizontalLayout_K">
+          <item>
+           <widget class="QLabel" name="labelK">
+            <property name="text">
+             <string>K value:</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QSlider" name="sliderK">
+            <property name="minimum">
+             <number>2</number>
+            </property>
+            <property name="maximum">
+             <number>16</number>
+            </property>
+            <property name="value">
+             <number>4</number>
+            </property>
+            <property name="orientation">
+             <enum>Qt::Orientation::Horizontal</enum>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QLabel" name="labelKValue">
+            <property name="text">
+             <string>4</string>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </item>
+        <item>
+         <widget class="QPushButton" name="btnApplyKMeans">
+          <property name="text">
+           <string>Apply K-Means</string>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </widget>
      </widget>
     </item>
    </layout>

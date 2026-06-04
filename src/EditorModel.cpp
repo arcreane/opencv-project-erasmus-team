@@ -129,3 +129,37 @@ void EditorModel::applyWhiteBalance(int method) {
         wb->balanceWhite(currentImage, processedImage);
     }
 }
+
+void EditorModel::applyKMeans(int k) {
+    if (currentImage.empty()) return;
+
+    if (currentImage.channels() != 3) {
+        processedImage = currentImage.clone();
+        return;
+    }
+
+    cv::Mat data;
+    currentImage.convertTo(data, CV_32F);
+
+    cv::Mat reshaped = data.reshape(1, currentImage.rows * currentImage.cols);
+
+    cv::TermCriteria criteria(cv::TermCriteria::EPS + cv::TermCriteria::COUNT, 10, 1.0);
+
+    cv::Mat labels;
+    cv::Mat centers;
+    cv::kmeans(reshaped, k, labels, criteria, 3, cv::KMEANS_PP_CENTERS, centers);
+
+    cv::Mat segmentedImage(currentImage.size(), currentImage.type());
+    for (int i = 0; i < reshaped.rows; ++i) {
+        int clusterId = labels.at<int>(i);
+        int y = i / currentImage.cols;
+        int x = i % currentImage.cols;
+        segmentedImage.at<cv::Vec3b>(y, x) = cv::Vec3b(
+            static_cast<uchar>(centers.at<float>(clusterId, 0)),
+            static_cast<uchar>(centers.at<float>(clusterId, 1)),
+            static_cast<uchar>(centers.at<float>(clusterId, 2))
+        );
+    }
+
+    processedImage = segmentedImage;
+}
