@@ -79,7 +79,7 @@
          </rect>
         </property>
         <property name="text">
-         <string>btnBinary</string>
+         <string>Binary</string>
         </property>
        </widget>
        <widget class="QPushButton" name="Otsu">
@@ -92,7 +92,7 @@
          </rect>
         </property>
         <property name="text">
-         <string>btnOtsu</string>
+         <string>Otsu</string>
         </property>
        </widget>
        <widget class="QPushButton" name="Adaptive">
@@ -105,7 +105,7 @@
          </rect>
         </property>
         <property name="text">
-         <string>btnAdaptive</string>
+         <string>Adaptive</string>
         </property>
        </widget>
        <widget class="QWidget" name="layoutWidget">
