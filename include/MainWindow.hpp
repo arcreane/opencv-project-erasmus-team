@@ -38,6 +38,8 @@ private slots:
   void on_sliderMorphSize_valueChanged(int value);
   void on_comboKernelShape_currentIndexChanged(int index);
   void on_btnApplyWB_clicked();
+  void on_btnApplyKMeans_clicked();
+  void on_sliderK_valueChanged(int value);
 
 private:
   Ui::MainWindow *ui;

@@ -124,6 +124,18 @@ void MainWindow::on_btnApplyWB_clicked()
     updateDisplay();
 }
 
+void MainWindow::on_btnApplyKMeans_clicked()
+{
+    int k = ui->sliderK->value();
+    model->applyKMeans(k);
+    updateDisplay();
+}
+
+void MainWindow::on_sliderK_valueChanged(int value)
+{
+    ui->labelKValue->setText(QString::number(value));
+}
+
 void MainWindow::on_btnBinary_clicked()
 {
     int val = ui->sliderThresh->value();
