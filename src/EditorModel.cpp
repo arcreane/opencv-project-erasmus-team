@@ -1,5 +1,6 @@
- #include "EditorModel.hpp"
+#include "EditorModel.hpp"
 #include <opencv2/xphoto.hpp>
+#include <opencv2/photo.hpp>
 
 bool EditorModel::loadImage(const std::string& path) {
    currentImage = cv::imread(path);
@@ -162,4 +163,141 @@ void EditorModel::applyKMeans(int k) {
     }
 
     processedImage = segmentedImage;
+}
+
+void EditorModel::applyCanny(int threshold1, int threshold2, int apertureSize) {
+    if (currentImage.empty()) return;
+
+    cv::Mat gray;
+
+    if (currentImage.channels() == 3) {
+        cv::cvtColor(currentImage, gray, cv::COLOR_BGR2GRAY);
+    }
+    else {
+        gray = currentImage.clone();
+    }
+
+    if (apertureSize != 3 && apertureSize != 5 && apertureSize != 7) {
+        apertureSize = 3;
+    }
+
+    cv::GaussianBlur(gray, gray, cv::Size(3, 3), 0);
+
+    cv::Canny(gray, processedImage, threshold1, threshold2, apertureSize);
+}
+
+void EditorModel::applyPencilSketch()
+{
+    if (currentImage.empty()) return;
+    cv::Mat sketchGray;
+    cv::Mat sketchColor;
+    cv::pencilSketch(
+        currentImage,
+        sketchGray,
+        sketchColor,
+        60.0f,
+        0.07f,
+        0.02f
+    );
+    processedImage = sketchGray;
+}
+void EditorModel::applyCartoonEffect()
+{
+    if (currentImage.empty()) return;
+
+    cv::Mat color;
+    cv::bilateralFilter(currentImage, color, 9, 75, 75);
+
+    cv::Mat gray;
+    cv::cvtColor(currentImage, gray, cv::COLOR_BGR2GRAY);
+    cv::medianBlur(gray, gray, 7);
+
+    cv::Mat edges;
+    cv::adaptiveThreshold(
+        gray, edges, 255,
+        cv::ADAPTIVE_THRESH_MEAN_C,
+        cv::THRESH_BINARY,
+        9, 2
+    );
+
+    cv::Mat edgesColor;
+    cv::cvtColor(edges, edgesColor, cv::COLOR_GRAY2BGR);
+
+    cv::bitwise_and(color, edgesColor, processedImage);
+}
+
+void EditorModel::applyRotate(double angle)
+{
+    if (currentImage.empty()) return;
+
+    cv::Point2f center(
+        currentImage.cols / 2.0f,
+        currentImage.rows / 2.0f
+    );
+
+    cv::Mat matrix = cv::getRotationMatrix2D(center, angle, 1.0);
+
+    cv::warpAffine(
+        currentImage,
+        processedImage,
+        matrix,
+        currentImage.size()
+    );
+}
+
+void EditorModel::applyAffineTransform()
+{
+    if (currentImage.empty()) return;
+
+    std::vector<cv::Point2f> srcPoints = {
+        {0.0f, 0.0f},
+        {static_cast<float>(currentImage.cols - 1), 0.0f},
+        {0.0f, static_cast<float>(currentImage.rows - 1)}
+    };
+
+    std::vector<cv::Point2f> dstPoints = {
+        {0.0f, static_cast<float>(currentImage.rows * 0.15f)},
+        {static_cast<float>(currentImage.cols * 0.85f), 0.0f},
+        {static_cast<float>(currentImage.cols * 0.15f), static_cast<float>(currentImage.rows * 0.85f)}
+    };
+
+    cv::Mat matrix = cv::getAffineTransform(srcPoints, dstPoints);
+
+    cv::warpAffine(
+        currentImage,
+        processedImage,
+        matrix,
+        currentImage.size()
+    );
+}
+
+void EditorModel::applyPerspectiveTransform()
+{
+    if (currentImage.empty()) return;
+
+    float w = static_cast<float>(currentImage.cols);
+    float h = static_cast<float>(currentImage.rows);
+
+    std::vector<cv::Point2f> srcPoints = {
+        {0.0f, 0.0f},
+        {w - 1.0f, 0.0f},
+        {w - 1.0f, h - 1.0f},
+        {0.0f, h - 1.0f}
+    };
+
+    std::vector<cv::Point2f> dstPoints = {
+        {w * 0.15f, h * 0.05f},
+        {w * 0.85f, h * 0.10f},
+        {w * 0.95f, h * 0.90f},
+        {w * 0.05f, h * 0.95f}
+    };
+
+    cv::Mat matrix = cv::getPerspectiveTransform(srcPoints, dstPoints);
+
+    cv::warpPerspective(
+        currentImage,
+        processedImage,
+        matrix,
+        currentImage.size()
+    );
 }

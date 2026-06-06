@@ -21,6 +21,13 @@ public:
   void applyWhiteBalance(int method);
 
   void applyKMeans(int k);
+
+  void applyCanny(int threshold1, int threshold2, int apertureSize);
+  void applyPencilSketch();
+  void applyCartoonEffect();
+  void applyRotate(double angle);
+  void applyAffineTransform();
+  void applyPerspectiveTransform();
 };
 
 #endif

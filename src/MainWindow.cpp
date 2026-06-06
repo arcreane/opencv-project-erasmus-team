@@ -371,3 +371,52 @@ void MainWindow::updateDisplayWithRect() {
 
     ui->imageLabel->setPixmap(finalPixmap);
 }
+
+void MainWindow::on_btnCanny_clicked()
+{
+    int t1 = ui->sliderCannyThreshold1->value();
+    int t2 = ui->sliderCannyThreshold2->value();
+
+    model->applyCanny(t1, t2, 3);
+    updateDisplay();
+}
+void MainWindow::on_sliderCannyThreshold1_valueChanged(int value)
+{
+    ui->labelCannyT1Value->setText(QString::number(value));
+    on_btnCanny_clicked();
+}
+
+void MainWindow::on_sliderCannyThreshold2_valueChanged(int value)
+{
+    ui->labelCannyT2Value->setText(QString::number(value));
+    on_btnCanny_clicked();
+}
+void MainWindow::on_btnPencilSketch_clicked()
+{
+    model->applyPencilSketch();
+    updateDisplay();
+}
+
+void MainWindow::on_btnCartoon_clicked()
+{
+    model->applyCartoonEffect();
+    updateDisplay();
+}
+
+void MainWindow::on_btnRotate_clicked()
+{
+    model->applyRotate(15.0);
+    updateDisplay();
+}
+
+void MainWindow::on_btnAffine_clicked()
+{
+    model->applyAffineTransform();
+    updateDisplay();
+}
+
+void MainWindow::on_btnPerspective_clicked()
+{
+    model->applyPerspectiveTransform();
+    updateDisplay();
+}
