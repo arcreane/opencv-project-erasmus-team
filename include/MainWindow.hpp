@@ -22,9 +22,9 @@ public:
 private slots:
   void on_actionOpen_triggered();
   void on_actionSave_triggered();
-  void on_Binary_clicked();
-  void on_Otsu_clicked();
-  void on_Adaptive_clicked();
+  void on_btnBinary_clicked();
+  void on_btnOtsu_clicked();
+  void on_btnAdaptive_clicked();
   void updateDisplay();
   void on_sliderThresh_valueChanged(int value);
   void on_buttonGlobalEq_clicked();
@@ -48,6 +48,7 @@ private slots:
   void on_btnRotate_clicked();
   void on_btnAffine_clicked();
   void on_btnPerspective_clicked();
+  void on_btnGrabCut_clicked();
 
 private:
   Ui::MainWindow *ui;

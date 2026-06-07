@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>808</width>
-    <height>591</height>
+    <height>650</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -44,426 +44,545 @@
      </widget>
     </item>
     <item>
-     <widget class="QWidget" name="sidebarTools" native="true">
+     <widget class="QScrollArea" name="scrollArea">
       <property name="minimumSize">
        <size>
-        <width>360</width>
+        <width>380</width>
         <height>0</height>
        </size>
       </property>
       <property name="maximumSize">
        <size>
-        <width>370</width>
+        <width>395</width>
         <height>16777215</height>
        </size>
       </property>
-      <widget class="QGroupBox" name="groupBinarization">
+      <property name="widgetResizable">
+       <bool>true</bool>
+      </property>
+      <widget class="QWidget" name="sidebarTools">
        <property name="geometry">
         <rect>
-         <x>20</x>
-         <y>10</y>
-         <width>341</width>
-         <height>91</height>
+         <x>0</x>
+         <y>0</y>
+         <width>360</width>
+         <height>1050</height>
         </rect>
        </property>
-       <property name="title">
-        <string>Thresholding</string>
+       <property name="minimumSize">
+        <size>
+         <width>360</width>
+         <height>1050</height>
+        </size>
        </property>
-       <widget class="QPushButton" name="btnBinary">
-        <property name="geometry">
-         <rect>
-          <x>10</x>
-          <y>20</y>
-          <width>100</width>
-          <height>32</height>
-         </rect>
+       <layout class="QVBoxLayout" name="verticalLayoutSidebar">
+        <property name="spacing">
+         <number>10</number>
         </property>
-        <property name="text">
-         <string>btnBinary</string>
+        <property name="leftMargin">
+         <number>10</number>
         </property>
-       </widget>
-       <widget class="QPushButton" name="btnOtsu">
-        <property name="geometry">
-         <rect>
-          <x>120</x>
-          <y>20</y>
-          <width>100</width>
-          <height>32</height>
-         </rect>
+        <property name="topMargin">
+         <number>10</number>
         </property>
-        <property name="text">
-         <string>btnOtsu</string>
+        <property name="rightMargin">
+         <number>10</number>
         </property>
-       </widget>
-       <widget class="QPushButton" name="btnAdaptive">
-        <property name="geometry">
-         <rect>
-          <x>230</x>
-          <y>20</y>
-          <width>100</width>
-          <height>32</height>
-         </rect>
+        <property name="bottomMargin">
+         <number>10</number>
         </property>
-        <property name="text">
-         <string>btnAdaptive</string>
-        </property>
-       </widget>
-       <widget class="QWidget" name="layoutWidget">
-        <property name="geometry">
-         <rect>
-          <x>10</x>
-          <y>50</y>
-          <width>321</width>
-          <height>31</height>
-         </rect>
-        </property>
-        <layout class="QHBoxLayout" name="horizontalLayout">
-         <item>
-          <widget class="QLabel" name="label">
-           <property name="text">
-            <string>Treshold value:</string>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <widget class="QSlider" name="sliderThresh">
-           <property name="maximum">
-            <number>255</number>
-           </property>
-           <property name="value">
-            <number>127</number>
-           </property>
-           <property name="orientation">
-            <enum>Qt::Orientation::Horizontal</enum>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <widget class="QLabel" name="labelThreshValue">
-           <property name="text">
-            <string>127</string>
-           </property>
-          </widget>
-         </item>
-        </layout>
-       </widget>
-      </widget>
-      <widget class="QGroupBox" name="groupContrast">
-       <property name="geometry">
-        <rect>
-         <x>20</x>
-         <y>110</y>
-         <width>341</width>
-         <height>112</height>
-        </rect>
-       </property>
-       <property name="title">
-        <string>Histogram equalization </string>
-       </property>
-       <layout class="QVBoxLayout" name="verticalLayout">
         <item>
-         <widget class="QPushButton" name="buttonGlobalEq">
-          <property name="text">
-           <string>Global Equalization</string>
+         <widget class="QGroupBox" name="groupTransforms">
+          <property name="title">
+           <string>Geometric Transforms</string>
           </property>
+          <layout class="QGridLayout" name="gridLayoutTransforms">
+           <item row="0" column="0">
+            <widget class="QPushButton" name="btnRotate">
+             <property name="text">
+              <string>Rotate</string>
+             </property>
+            </widget>
+           </item>
+           <item row="0" column="1">
+            <widget class="QPushButton" name="btnAffine">
+             <property name="text">
+              <string>Affine</string>
+             </property>
+            </widget>
+           </item>
+           <item row="1" column="0" colspan="2">
+            <widget class="QPushButton" name="btnPerspective">
+             <property name="text">
+              <string>Perspective</string>
+             </property>
+            </widget>
+           </item>
+          </layout>
          </widget>
         </item>
         <item>
-         <layout class="QHBoxLayout" name="horizontalLayout_3">
-          <item>
-           <widget class="QLabel" name="label_2">
-            <property name="text">
-             <string>Contrast strength:</string>
-            </property>
-           </widget>
-          </item>
-          <item>
-           <widget class="QSlider" name="sliderClipLimit">
-            <property name="minimum">
-             <number>1</number>
-            </property>
-            <property name="maximum">
-             <number>100</number>
-            </property>
-            <property name="value">
-             <number>40</number>
-            </property>
-            <property name="orientation">
-             <enum>Qt::Orientation::Horizontal</enum>
-            </property>
-           </widget>
-          </item>
-          <item>
-           <widget class="QLabel" name="labelClipValue">
-            <property name="text">
-             <string>2.0</string>
-            </property>
-           </widget>
-          </item>
-         </layout>
-        </item>
-        <item>
-         <layout class="QHBoxLayout" name="horizontalLayout_4">
-          <item>
-           <widget class="QLabel" name="label_3">
-            <property name="text">
-             <string>Block size:</string>
-            </property>
-           </widget>
-          </item>
-          <item>
-           <widget class="QSlider" name="sliderGridSize">
-            <property name="minimum">
-             <number>2</number>
-            </property>
-            <property name="maximum">
-             <number>32</number>
-            </property>
-            <property name="value">
-             <number>8</number>
-            </property>
-            <property name="orientation">
-             <enum>Qt::Orientation::Horizontal</enum>
-            </property>
-           </widget>
-          </item>
-          <item>
-           <widget class="QLabel" name="labelGridValue">
-            <property name="text">
-             <string>8x8</string>
-            </property>
-           </widget>
-          </item>
-         </layout>
-        </item>
-       </layout>
-      </widget>
-      <widget class="QGroupBox" name="groupMorphology">
-       <property name="geometry">
-        <rect>
-         <x>20</x>
-         <y>230</y>
-         <width>341</width>
-         <height>180</height>
-        </rect>
-       </property>
-       <property name="title">
-        <string>Morphology</string>
-       </property>
-       <layout class="QVBoxLayout" name="verticalLayout_2">
-        <item>
-         <layout class="QHBoxLayout" name="horizontalLayout_5">
-          <item>
-           <widget class="QLabel" name="label_6">
-            <property name="text">
-             <string>Kernel size:</string>
-            </property>
-           </widget>
-          </item>
-          <item>
-           <widget class="QLabel" name="labelMorphValue">
-            <property name="text">
-             <string>3x3</string>
-            </property>
-           </widget>
-          </item>
-          <item>
-           <widget class="QSlider" name="sliderMorphSize">
-            <property name="minimum">
-             <number>1</number>
-            </property>
-            <property name="maximum">
-             <number>10</number>
-            </property>
-            <property name="orientation">
-             <enum>Qt::Orientation::Horizontal</enum>
-            </property>
-           </widget>
-          </item>
-         </layout>
-        </item>
-        <item>
-         <layout class="QHBoxLayout" name="horizontalLayout_6">
-          <item>
-           <widget class="QLabel" name="label_4">
-            <property name="text">
-             <string>Kernel shape:</string>
-            </property>
-           </widget>
-          </item>
-          <item>
-           <widget class="QComboBox" name="comboKernelShape">
-            <item>
-             <property name="text">
-              <string>Rectangle</string>
-             </property>
-            </item>
-            <item>
-             <property name="text">
-              <string>Cross</string>
-             </property>
-            </item>
-            <item>
-             <property name="text">
-              <string>Ellipse</string>
-             </property>
-            </item>
-           </widget>
-          </item>
-         </layout>
-        </item>
-        <item>
-         <layout class="QHBoxLayout" name="horizontalLayout_10">
-          <item>
-           <widget class="QPushButton" name="btnErosion">
-            <property name="text">
-             <string>Erosion</string>
-            </property>
-           </widget>
-          </item>
-          <item>
-           <widget class="QPushButton" name="btnDilation">
-            <property name="text">
-             <string>Dilation</string>
-            </property>
-           </widget>
-          </item>
-         </layout>
-        </item>
-        <item>
-         <layout class="QHBoxLayout" name="horizontalLayout_12">
-          <item>
-           <widget class="QPushButton" name="btnNoise">
-            <property name="text">
-             <string>Opening</string>
-            </property>
-           </widget>
-          </item>
-          <item>
-           <widget class="QPushButton" name="btnClosing">
-            <property name="text">
-             <string>Closing</string>
-            </property>
-           </widget>
-          </item>
-          <item>
-           <widget class="QPushButton" name="btnGradient">
-            <property name="text">
-             <string>Gradient</string>
-            </property>
-           </widget>
-          </item>
-         </layout>
-        </item>
-       </layout>
-      </widget>
-      <widget class="QGroupBox" name="groupWhiteBalance">
-       <property name="geometry">
-        <rect>
-         <x>20</x>
-         <y>420</y>
-         <width>341</width>
-         <height>95</height>
-        </rect>
-       </property>
-       <property name="title">
-        <string>White Balance</string>
-       </property>
-       <layout class="QVBoxLayout" name="verticalLayout_WB">
-        <item>
-         <layout class="QHBoxLayout" name="horizontalLayout_WB_Method">
-          <item>
-           <widget class="QLabel" name="labelWBMethod">
-            <property name="text">
-             <string>Method:</string>
-            </property>
-           </widget>
-          </item>
-          <item>
-           <widget class="QComboBox" name="comboWBMethod">
-            <item>
-             <property name="text">
-              <string>Gray World</string>
-             </property>
-            </item>
-            <item>
-             <property name="text">
-              <string>Simple</string>
-             </property>
-            </item>
-           </widget>
-          </item>
-         </layout>
-        </item>
-        <item>
-         <widget class="QPushButton" name="btnApplyWB">
-          <property name="text">
-           <string>Apply White Balance</string>
+         <widget class="QGroupBox" name="groupColorContrast">
+          <property name="title">
+           <string>Color &amp; Contrast</string>
           </property>
+          <layout class="QVBoxLayout" name="verticalLayoutColorContrast">
+           <item>
+            <widget class="QPushButton" name="buttonGlobalEq">
+             <property name="text">
+              <string>Global Equalization</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <layout class="QHBoxLayout" name="horizontalLayout_3">
+             <item>
+              <widget class="QLabel" name="label_2">
+               <property name="text">
+                <string>Contrast strength:</string>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QSlider" name="sliderClipLimit">
+               <property name="minimum">
+                <number>1</number>
+               </property>
+               <property name="maximum">
+                <number>100</number>
+               </property>
+               <property name="value">
+                <number>40</number>
+               </property>
+               <property name="orientation">
+                <enum>Qt::Orientation::Horizontal</enum>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QLabel" name="labelClipValue">
+               <property name="text">
+                <string>2.0</string>
+               </property>
+              </widget>
+             </item>
+            </layout>
+           </item>
+           <item>
+            <layout class="QHBoxLayout" name="horizontalLayout_4">
+             <item>
+              <widget class="QLabel" name="label_3">
+               <property name="text">
+                <string>Block size:</string>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QSlider" name="sliderGridSize">
+               <property name="minimum">
+                <number>2</number>
+               </property>
+               <property name="maximum">
+                <number>32</number>
+               </property>
+               <property name="value">
+                <number>8</number>
+               </property>
+               <property name="orientation">
+                <enum>Qt::Orientation::Horizontal</enum>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QLabel" name="labelGridValue">
+               <property name="text">
+                <string>8x8</string>
+               </property>
+              </widget>
+             </item>
+            </layout>
+           </item>
+           <item>
+            <layout class="QHBoxLayout" name="horizontalLayout_WB_Method">
+             <item>
+              <widget class="QLabel" name="labelWBMethod">
+               <property name="text">
+                <string>Method:</string>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QComboBox" name="comboWBMethod">
+               <item>
+                <property name="text">
+                 <string>Gray World</string>
+                </property>
+               </item>
+               <item>
+                <property name="text">
+                 <string>Simple</string>
+                </property>
+               </item>
+              </widget>
+             </item>
+            </layout>
+           </item>
+           <item>
+            <widget class="QPushButton" name="btnApplyWB">
+             <property name="text">
+              <string>Apply White Balance</string>
+             </property>
+            </widget>
+           </item>
+          </layout>
          </widget>
         </item>
-       </layout>
-      </widget>
-      <widget class="QGroupBox" name="groupKMeans">
-       <property name="geometry">
-        <rect>
-         <x>20</x>
-         <y>520</y>
-         <width>341</width>
-         <height>120</height>
-        </rect>
-       </property>
-       <property name="title">
-        <string>K-Means Color Segmentation</string>
-       </property>
-       <layout class="QVBoxLayout" name="verticalLayout_KMeans">
         <item>
-         <layout class="QHBoxLayout" name="horizontalLayout_K">
-          <item>
-           <widget class="QLabel" name="labelK">
-            <property name="text">
-             <string>K value:</string>
-            </property>
-           </widget>
-          </item>
-          <item>
-           <widget class="QSlider" name="sliderK">
-            <property name="minimum">
-             <number>2</number>
-            </property>
-            <property name="maximum">
-             <number>16</number>
-            </property>
-            <property name="value">
-             <number>4</number>
-            </property>
-            <property name="orientation">
-             <enum>Qt::Orientation::Horizontal</enum>
-            </property>
-           </widget>
-          </item>
-          <item>
-           <widget class="QLabel" name="labelKValue">
-            <property name="text">
-             <string>4</string>
-            </property>
-           </widget>
-          </item>
-         </layout>
+         <widget class="QGroupBox" name="groupThresholding">
+          <property name="title">
+           <string>Thresholding &amp; Edges</string>
+          </property>
+          <layout class="QVBoxLayout" name="verticalLayoutThresholding">
+           <item>
+            <layout class="QGridLayout" name="gridLayoutThresholdingButtons">
+             <item row="0" column="0">
+              <widget class="QPushButton" name="btnBinary">
+               <property name="text">
+                <string>Binary</string>
+               </property>
+              </widget>
+             </item>
+             <item row="0" column="1">
+              <widget class="QPushButton" name="btnOtsu">
+               <property name="text">
+                <string>Otsu</string>
+               </property>
+              </widget>
+             </item>
+             <item row="1" column="0">
+              <widget class="QPushButton" name="btnAdaptive">
+               <property name="text">
+                <string>Adaptive</string>
+               </property>
+              </widget>
+             </item>
+             <item row="1" column="1">
+              <widget class="QPushButton" name="btnCanny">
+               <property name="text">
+                <string>Canny</string>
+               </property>
+              </widget>
+             </item>
+            </layout>
+           </item>
+           <item>
+            <layout class="QHBoxLayout" name="horizontalLayoutThreshSlider">
+             <item>
+              <widget class="QLabel" name="label">
+               <property name="text">
+                <string>Threshold value:</string>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QSlider" name="sliderThresh">
+               <property name="maximum">
+                <number>255</number>
+               </property>
+               <property name="value">
+                <number>127</number>
+               </property>
+               <property name="orientation">
+                <enum>Qt::Orientation::Horizontal</enum>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QLabel" name="labelThreshValue">
+               <property name="text">
+                <string>127</string>
+               </property>
+              </widget>
+             </item>
+            </layout>
+           </item>
+           <item>
+            <layout class="QHBoxLayout" name="horizontalLayoutCanny1Slider">
+             <item>
+              <widget class="QLabel" name="labelCanny1">
+               <property name="text">
+                <string>Canny T1:</string>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QSlider" name="sliderCannyThreshold1">
+               <property name="maximum">
+                <number>255</number>
+               </property>
+               <property name="value">
+                <number>100</number>
+               </property>
+               <property name="orientation">
+                <enum>Qt::Orientation::Horizontal</enum>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QLabel" name="labelCannyT1Value">
+               <property name="text">
+                <string>100</string>
+               </property>
+              </widget>
+             </item>
+            </layout>
+           </item>
+           <item>
+            <layout class="QHBoxLayout" name="horizontalLayoutCanny2Slider">
+             <item>
+              <widget class="QLabel" name="labelCanny2">
+               <property name="text">
+                <string>Canny T2:</string>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QSlider" name="sliderCannyThreshold2">
+               <property name="maximum">
+                <number>255</number>
+               </property>
+               <property name="value">
+                <number>200</number>
+               </property>
+               <property name="orientation">
+                <enum>Qt::Orientation::Horizontal</enum>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QLabel" name="labelCannyT2Value">
+               <property name="text">
+                <string>200</string>
+               </property>
+              </widget>
+             </item>
+            </layout>
+           </item>
+          </layout>
+         </widget>
         </item>
         <item>
-         <widget class="QPushButton" name="btnApplyKMeans">
-          <property name="text">
-           <string>Apply K-Means</string>
+         <widget class="QGroupBox" name="groupMorphology">
+          <property name="title">
+           <string>Morphology</string>
           </property>
+          <layout class="QVBoxLayout" name="verticalLayout_2">
+           <item>
+            <layout class="QHBoxLayout" name="horizontalLayout_5">
+             <item>
+              <widget class="QLabel" name="label_6">
+               <property name="text">
+                <string>Kernel size:</string>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QLabel" name="labelMorphValue">
+               <property name="text">
+                <string>3x3</string>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QSlider" name="sliderMorphSize">
+               <property name="minimum">
+                <number>1</number>
+               </property>
+               <property name="maximum">
+                <number>10</number>
+               </property>
+               <property name="orientation">
+                <enum>Qt::Orientation::Horizontal</enum>
+               </property>
+              </widget>
+             </item>
+            </layout>
+           </item>
+           <item>
+            <layout class="QHBoxLayout" name="horizontalLayout_6">
+             <item>
+              <widget class="QLabel" name="label_4">
+               <property name="text">
+                <string>Kernel shape:</string>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QComboBox" name="comboKernelShape">
+               <item>
+                <property name="text">
+                 <string>Rectangle</string>
+                </property>
+               </item>
+               <item>
+                <property name="text">
+                 <string>Cross</string>
+                </property>
+               </item>
+               <item>
+                <property name="text">
+                 <string>Ellipse</string>
+                </property>
+               </item>
+              </widget>
+             </item>
+            </layout>
+           </item>
+           <item>
+            <layout class="QHBoxLayout" name="horizontalLayout_10">
+             <item>
+              <widget class="QPushButton" name="btnErosion">
+               <property name="text">
+                <string>Erosion</string>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QPushButton" name="btnDilation">
+               <property name="text">
+                <string>Dilation</string>
+               </property>
+              </widget>
+             </item>
+            </layout>
+           </item>
+           <item>
+            <layout class="QHBoxLayout" name="horizontalLayout_12">
+             <item>
+              <widget class="QPushButton" name="btnNoise">
+               <property name="text">
+                <string>Opening</string>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QPushButton" name="btnClosing">
+               <property name="text">
+                <string>Closing</string>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QPushButton" name="btnGradient">
+               <property name="text">
+                <string>Gradient</string>
+               </property>
+              </widget>
+             </item>
+            </layout>
+           </item>
+          </layout>
          </widget>
+        </item>
+        <item>
+         <widget class="QGroupBox" name="groupSegmentation">
+          <property name="title">
+           <string>Advanced Segmentation</string>
+          </property>
+          <layout class="QVBoxLayout" name="verticalLayoutSegmentation">
+           <item>
+            <widget class="QPushButton" name="btnGrabCut">
+             <property name="text">
+              <string>GrabCut</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <layout class="QHBoxLayout" name="horizontalLayout_K">
+             <item>
+              <widget class="QLabel" name="labelK">
+               <property name="text">
+                <string>K value:</string>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QSlider" name="sliderK">
+               <property name="minimum">
+                <number>2</number>
+               </property>
+               <property name="maximum">
+                <number>16</number>
+               </property>
+               <property name="value">
+                <number>4</number>
+               </property>
+               <property name="orientation">
+                <enum>Qt::Orientation::Horizontal</enum>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QLabel" name="labelKValue">
+               <property name="text">
+                <string>4</string>
+               </property>
+              </widget>
+             </item>
+            </layout>
+           </item>
+           <item>
+            <widget class="QPushButton" name="btnApplyKMeans">
+             <property name="text">
+              <string>Apply K-Means</string>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </widget>
+        </item>
+        <item>
+         <widget class="QGroupBox" name="groupCreative">
+          <property name="title">
+           <string>Creative Effects</string>
+          </property>
+          <layout class="QHBoxLayout" name="horizontalLayoutCreative">
+           <item>
+            <widget class="QPushButton" name="btnPencilSketch">
+             <property name="text">
+              <string>PencilSketch</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QPushButton" name="btnCartoon">
+             <property name="text">
+              <string>Cartoon</string>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </widget>
+        </item>
+        <item>
+         <spacer name="verticalSpacer">
+          <property name="orientation">
+           <enum>Qt::Orientation::Vertical</enum>
+          </property>
+          <property name="sizeHint" stdset="0">
+           <size>
+            <width>20</width>
+            <height>40</height>
+           </size>
+          </property>
+         </spacer>
         </item>
        </layout>
       </widget>
      </widget>
     </item>
    </layout>
-   <zorder>sidebarTools</zorder>
+   <zorder>scrollArea</zorder>
    <zorder>imageLabel</zorder>
   </widget>
   <widget class="QStatusBar" name="statusbar"/>
@@ -483,14 +602,7 @@
     <addaction name="actionOpen"/>
     <addaction name="actionSave"/>
    </widget>
-   <widget class="QMenu" name="menuAdvanced_Features">
-    <property name="title">
-     <string>Advanced Features</string>
-    </property>
-    <addaction name="actionGrabCut_Segmnetation"/>
-   </widget>
    <addaction name="menuFile"/>
-   <addaction name="menuAdvanced_Features"/>
   </widget>
   <action name="actionOpen">
    <property name="text">
@@ -502,11 +614,8 @@
     <string>Save</string>
    </property>
   </action>
-  <action name="actionGrabCut_Segmnetation">
-   <property name="text">
-    <string>GrabCut Segmnetation</string>
-   </property>
-  </action>
+
+
  </widget>
  <resources/>
  <connections/>

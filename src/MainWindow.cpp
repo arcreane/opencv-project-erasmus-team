@@ -1,6 +1,8 @@
 #include "MainWindow.hpp"
 #include "ui_mainwindow.h"
 #include <QFileDialog>
+#include <QMessageBox>
+#include <QApplication>
 
 MainWindow::MainWindow(QWidget* parent)
     : QMainWindow(parent)
@@ -22,12 +24,6 @@ MainWindow::MainWindow(QWidget* parent)
     ui->comboKernelShape->setCurrentIndex(0);
 
     ui->imageLabel->installEventFilter(this);
-
-    connect(ui->actionGrabCut_Segmnetation, &QAction::triggered, this, [this]()
-        {
-            isGrabCutMode = true;
-            ui->imageLabel->setCursor(Qt::CrossCursor);
-        });
 }
 
 MainWindow::~MainWindow()
@@ -136,20 +132,20 @@ void MainWindow::on_sliderK_valueChanged(int value)
     ui->labelKValue->setText(QString::number(value));
 }
 
-void MainWindow::on_Binary_clicked()
+void MainWindow::on_btnBinary_clicked()
 {
     int val = ui->sliderThresh->value();
     model->applyThreshold(0, val);
     updateDisplay();
 }
 
-void MainWindow::on_Otsu_clicked()
+void MainWindow::on_btnOtsu_clicked()
 {
     model->applyThreshold(1, 0);
     updateDisplay();
 }
 
-void MainWindow::on_Adaptive_clicked()
+void MainWindow::on_btnAdaptive_clicked()
 {
     int val = ui->sliderThresh->value();
     model->applyThreshold(2, val);
@@ -419,4 +415,10 @@ void MainWindow::on_btnPerspective_clicked()
 {
     model->applyPerspectiveTransform();
     updateDisplay();
+}
+
+void MainWindow::on_btnGrabCut_clicked()
+{
+    isGrabCutMode = true;
+    ui->imageLabel->setCursor(Qt::CrossCursor);
 }
