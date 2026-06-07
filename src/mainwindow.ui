@@ -51,6 +51,112 @@
             <height>32</height>
            </rect>
           </property>
+      <widget class="QGroupBox" name="groupBinarization">
+       <property name="geometry">
+        <rect>
+         <x>20</x>
+         <y>10</y>
+         <width>341</width>
+         <height>91</height>
+        </rect>
+       </property>
+       <property name="title">
+        <string>Thresholding</string>
+       </property>
+       <widget class="QPushButton" name="Binary">
+        <property name="geometry">
+         <rect>
+          <x>10</x>
+          <y>20</y>
+          <width>100</width>
+          <height>32</height>
+         </rect>
+        </property>
+        <property name="text">
+         <string>Binary</string>
+        </property>
+       </widget>
+       <widget class="QPushButton" name="Otsu">
+        <property name="geometry">
+         <rect>
+          <x>120</x>
+          <y>20</y>
+          <width>100</width>
+          <height>32</height>
+         </rect>
+        </property>
+        <property name="text">
+         <string>Otsu</string>
+        </property>
+       </widget>
+       <widget class="QPushButton" name="Adaptive">
+        <property name="geometry">
+         <rect>
+          <x>230</x>
+          <y>20</y>
+          <width>100</width>
+          <height>32</height>
+         </rect>
+        </property>
+        <property name="text">
+         <string>Adaptive</string>
+        </property>
+       </widget>
+       <widget class="QWidget" name="layoutWidget">
+        <property name="geometry">
+         <rect>
+          <x>10</x>
+          <y>50</y>
+          <width>321</width>
+          <height>31</height>
+         </rect>
+        </property>
+        <layout class="QHBoxLayout" name="horizontalLayout">
+         <item>
+          <widget class="QLabel" name="label">
+           <property name="text">
+            <string>Treshold value:</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QSlider" name="sliderThresh">
+           <property name="maximum">
+            <number>255</number>
+           </property>
+           <property name="value">
+            <number>127</number>
+           </property>
+           <property name="orientation">
+            <enum>Qt::Orientation::Horizontal</enum>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QLabel" name="labelThreshValue">
+           <property name="text">
+            <string>127</string>
+           </property>
+          </widget>
+         </item>
+        </layout>
+       </widget>
+      </widget>
+      <widget class="QGroupBox" name="groupContrast">
+       <property name="geometry">
+        <rect>
+         <x>20</x>
+         <y>110</y>
+         <width>341</width>
+         <height>112</height>
+        </rect>
+       </property>
+       <property name="title">
+        <string>Histogram equalization </string>
+       </property>
+       <layout class="QVBoxLayout" name="verticalLayout">
+        <item>
+         <widget class="QPushButton" name="buttonGlobalEq">
           <property name="text">
            <string>btnBinary</string>
           </property>
