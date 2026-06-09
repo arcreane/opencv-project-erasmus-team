@@ -628,6 +628,22 @@
          </widget>
         </item>
         <item>
+            <widget class="QGroupBox" name="groupStitching">
+                <property name="title">
+                <string>Stitching</string>
+                </property>
+                <layout class="QVBoxLayout" name="verticalLayoutStitching">
+                <item>
+                    <widget class="QPushButton" name="stitchButton">
+                    <property name="text">
+                        <string>Stitch Panorama</string>
+                    </property>
+                    </widget>
+                </item>
+                </layout>
+            </widget>
+        </item>
+        <item>
          <spacer name="verticalSpacer">
           <property name="orientation">
            <enum>Qt::Orientation::Vertical</enum>

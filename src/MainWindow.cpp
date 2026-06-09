@@ -436,3 +436,23 @@ void MainWindow::on_btnGrabCut_clicked()
     isGrabCutMode = true;
     ui->imageLabel->setCursor(Qt::CrossCursor);
 }
+
+void MainWindow::on_stitchButton_clicked() {
+    QStringList fileNames = QFileDialog::getOpenFileNames(
+        this, tr("Select Images for Panorama"), "",
+        tr("Images (*.png *.jpg *.jpeg *.bmp)")
+        );
+
+    std::vector<cv::Mat> images;
+    for (const QString &file : fileNames) {
+        cv::Mat img = cv::imread(file.toStdString());
+        if (!img.empty()) images.push_back(img);
+    }
+
+    cv::Mat result;
+    if (model->stitchImages(images, result)) {
+        model->setCurrentImage(result); // refresca el canvas
+    } else {
+        QMessageBox::warning(this, tr("Panorama"), tr("Stitching failed."));
+    }
+}

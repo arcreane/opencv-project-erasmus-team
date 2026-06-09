@@ -11,6 +11,9 @@ public:
   bool loadImage(const std::string &path);
   void applyThreshold(int method, int threshValue);
 
+  bool stitchImages(const std::vector<cv::Mat>& images, cv::Mat& panorama);
+  void setCurrentImage(const cv::Mat& img);
+
   void applyGlobalEqualization();
   void applyCLAHE(double clipLimit, int gridSize);
 

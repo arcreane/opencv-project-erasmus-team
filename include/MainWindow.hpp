@@ -49,6 +49,7 @@ private slots:
   void on_sliderAffine_valueChanged(int value);
   void on_sliderPerspective_valueChanged(int value);
   void on_btnGrabCut_clicked();
+  void on_stitchButton_clicked();
 
 private:
   Ui::MainWindow *ui;

@@ -1,10 +1,52 @@
 #include "EditorModel.hpp"
 #include <opencv2/xphoto.hpp>
 #include <opencv2/photo.hpp>
-
+#include <opencv2/stitching.hpp>
 bool EditorModel::loadImage(const std::string& path) {
    currentImage = cv::imread(path);
    return !currentImage.empty();
+}
+
+
+bool EditorModel::stitchImages(const std::vector<cv::Mat>& images, cv::Mat& panorama) {
+    if (images.size() < 2) return false;
+
+    std::vector<cv::Mat> preprocessed;
+    for (auto img : images) {
+        cv::Mat tmp;
+
+        if (img.channels() == 4) {
+            cv::cvtColor(img, tmp, cv::COLOR_RGBA2BGR);
+        } else if (img.channels() == 1) {
+            cv::cvtColor(img, tmp, cv::COLOR_GRAY2BGR);
+        } else {
+            tmp = img.clone();
+        }
+
+        const int maxDim = 1000;
+        if (tmp.cols > maxDim || tmp.rows > maxDim) {
+            float scale = maxDim / float(std::max(tmp.cols, tmp.rows));
+            cv::resize(tmp, tmp, cv::Size(), scale, scale);
+        }
+
+        preprocessed.push_back(tmp);
+    }
+
+    cv::Ptr<cv::Stitcher> stitcher = cv::Stitcher::create(cv::Stitcher::PANORAMA);
+    stitcher->setPanoConfidenceThresh(0.3f);
+
+    cv::Stitcher::Status status = stitcher->stitch(preprocessed, panorama);
+
+    if (status != cv::Stitcher::OK) {
+        std::cout << "Stitching failed. Status code: " << status << std::endl;
+        return false;
+    }
+    return true;
+}
+
+void EditorModel::setCurrentImage(const cv::Mat& img) {
+    currentImage = img.clone();
+    processedImage = img.clone();
 }
 
 void EditorModel::applyThreshold(int method, int threshValue) {
