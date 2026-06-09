@@ -429,26 +429,16 @@ void MainWindow::on_stitchButton_clicked() {
         tr("Images (*.png *.jpg *.jpeg *.bmp)")
         );
 
-    if (fileNames.size() < 2) {
-        QMessageBox::warning(this, tr("Panorama"), tr("Please select at least two images."));
-        return;
-    }
-
     std::vector<cv::Mat> images;
     for (const QString &file : fileNames) {
         cv::Mat img = cv::imread(file.toStdString());
-        if (img.empty()) {
-            QMessageBox::warning(this, tr("Panorama"), tr("Failed to load image: %1").arg(file));
-            return;
-        }
-        images.push_back(img);
+        if (!img.empty()) images.push_back(img);
     }
 
     cv::Mat result;
-    if (!model->stitchImages(images, result)) {
-        QMessageBox::warning(this, tr("Panorama"), tr("Stitching failed. Not enough overlap or features."));
-        return;
+    if (model->stitchImages(images, result)) {
+        model->setCurrentImage(result); // refresca el canvas
+    } else {
+        QMessageBox::warning(this, tr("Panorama"), tr("Stitching failed."));
     }
-
-    model->setCurrentImage(result); // refresca el canvas
 }

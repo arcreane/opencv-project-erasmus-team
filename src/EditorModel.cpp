@@ -12,14 +12,14 @@ bool EditorModel::stitchImages(const std::vector<cv::Mat>& images, cv::Mat& pano
     if (images.size() < 2) return false;
 
     cv::Ptr<cv::Stitcher> stitcher = cv::Stitcher::create(cv::Stitcher::PANORAMA);
-
     cv::Stitcher::Status status = stitcher->stitch(images, panorama);
 
-    if (status != cv::Stitcher::OK) {
-        qDebug() << "Panorama stitching failed!";
-        return false;
-    }
-    return true;
+    return status == cv::Stitcher::OK;
+}
+
+void EditorModel::setCurrentImage(const cv::Mat& img) {
+    currentImage = img.clone();
+    processedImage = img.clone();
 }
 
 void EditorModel::applyThreshold(int method, int threshValue) {

@@ -49,6 +49,7 @@ private slots:
   void on_btnAffine_clicked();
   void on_btnPerspective_clicked();
   void on_btnGrabCut_clicked();
+  void on_stitchButton_clicked();
 
 private:
   Ui::MainWindow *ui;
