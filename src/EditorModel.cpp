@@ -258,21 +258,25 @@ void EditorModel::applyRotate(double angle)
         currentImage.size()
     );
 }
-
-void EditorModel::applyAffineTransform()
+void EditorModel::applyAffineTransform(double skewFactor)
 {
     if (currentImage.empty()) return;
 
+    float w = static_cast<float>(currentImage.cols);
+    float h = static_cast<float>(currentImage.rows);
+
+    float shift = static_cast<float>(skewFactor) * w * 0.25f;
+
     std::vector<cv::Point2f> srcPoints = {
         {0.0f, 0.0f},
-        {static_cast<float>(currentImage.cols - 1), 0.0f},
-        {0.0f, static_cast<float>(currentImage.rows - 1)}
+        {w - 1.0f, 0.0f},
+        {0.0f, h - 1.0f}
     };
 
     std::vector<cv::Point2f> dstPoints = {
-        {0.0f, static_cast<float>(currentImage.rows * 0.15f)},
-        {static_cast<float>(currentImage.cols * 0.85f), 0.0f},
-        {static_cast<float>(currentImage.cols * 0.15f), static_cast<float>(currentImage.rows * 0.85f)}
+        {shift, 0.0f},
+        {w - 1.0f + shift, 0.0f},
+        {0.0f, h - 1.0f}
     };
 
     cv::Mat matrix = cv::getAffineTransform(srcPoints, dstPoints);
@@ -281,16 +285,21 @@ void EditorModel::applyAffineTransform()
         currentImage,
         processedImage,
         matrix,
-        currentImage.size()
+        currentImage.size(),
+        cv::INTER_LINEAR,
+        cv::BORDER_CONSTANT,
+        cv::Scalar(0, 0, 0)
     );
 }
 
-void EditorModel::applyPerspectiveTransform()
+void EditorModel::applyPerspectiveTransform(double warpFactor)
 {
     if (currentImage.empty()) return;
 
     float w = static_cast<float>(currentImage.cols);
     float h = static_cast<float>(currentImage.rows);
+
+    float inset = static_cast<float>(warpFactor) * w * 0.25f;
 
     std::vector<cv::Point2f> srcPoints = {
         {0.0f, 0.0f},
@@ -300,10 +309,10 @@ void EditorModel::applyPerspectiveTransform()
     };
 
     std::vector<cv::Point2f> dstPoints = {
-        {w * 0.15f, h * 0.05f},
-        {w * 0.85f, h * 0.10f},
-        {w * 0.95f, h * 0.90f},
-        {w * 0.05f, h * 0.95f}
+        {inset, 0.0f},
+        {w - 1.0f - inset, 0.0f},
+        {w - 1.0f, h - 1.0f},
+        {0.0f, h - 1.0f}
     };
 
     cv::Mat matrix = cv::getPerspectiveTransform(srcPoints, dstPoints);
@@ -312,6 +321,9 @@ void EditorModel::applyPerspectiveTransform()
         currentImage,
         processedImage,
         matrix,
-        currentImage.size()
+        currentImage.size(),
+        cv::INTER_LINEAR,
+        cv::BORDER_CONSTANT,
+        cv::Scalar(0, 0, 0)
     );
 }

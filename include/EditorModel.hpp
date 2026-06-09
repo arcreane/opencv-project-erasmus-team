@@ -26,8 +26,8 @@ public:
   void applyPencilSketch();
   void applyCartoonEffect();
   void applyRotate(double angle);
-  void applyAffineTransform();
-  void applyPerspectiveTransform();
+  void applyAffineTransform(double skewFactor);
+  void applyPerspectiveTransform(double warpFactor);
 };
 
 #endif
