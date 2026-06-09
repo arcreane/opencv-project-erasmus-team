@@ -62,5 +62,7 @@ private:
 
   bool eventFilter(QObject *watched, QEvent *event) override;
   void updateDisplayWithRect();
+
+  int currentMorphMethod = 2;
 };
 #endif
