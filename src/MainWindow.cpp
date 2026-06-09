@@ -423,14 +423,18 @@ void MainWindow::on_btnGrabCut_clicked()
     ui->imageLabel->setCursor(Qt::CrossCursor);
 }
 
-void MainWindow::on_undoButton_triggered() {
-    if (model && model->undoManager)
+void MainWindow::on_actionUndo_triggered() {
+    if(model && model->undoManager)
         model->undoManager->undo();
     updateDisplay();
 }
 
-void MainWindow::on_redoButton_triggered() {
-    if (model && model->undoManager)
+void MainWindow::on_actionRedo_triggered() {
+    if(model && model->undoManager)
         model->undoManager->redo();
     updateDisplay();
 }
+
+auto cmd = std::make_shared<ThresholdCommand>(model, method, value);
+model->undoManager->executeCommand(cmd);
+updateDisplay();

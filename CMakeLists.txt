@@ -34,8 +34,16 @@ set(PROJECT_SOURCES
         src/main.cpp
         src/MainWindow.cpp
         src/EditorModel.cpp
+        src/UndoRedoManager.cpp
         include/MainWindow.hpp
         include/EditorModel.hpp
+        include/Command.hpp
+        include/ThresholdCommand.hpp
+        include/CLAHECommand.hpp
+        include/MorphologyCommand.hpp
+        include/RotateCommand.hpp
+        include/AffineCommand.hpp
+        include/PerspectiveCommand.hpp
         src/mainwindow.ui
         ${TS_FILES}
 )
