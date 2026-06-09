@@ -49,6 +49,8 @@ private slots:
   void on_btnAffine_clicked();
   void on_btnPerspective_clicked();
   void on_btnGrabCut_clicked();
+  void on_actionUndo_triggered();
+  void on_actionRedo_triggered();
 
 private:
   Ui::MainWindow *ui;

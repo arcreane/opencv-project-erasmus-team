@@ -422,3 +422,15 @@ void MainWindow::on_btnGrabCut_clicked()
     isGrabCutMode = true;
     ui->imageLabel->setCursor(Qt::CrossCursor);
 }
+
+void MainWindow::on_undoButton_triggered() {
+    if (model && model->undoManager)
+        model->undoManager->undo();
+    updateDisplay();
+}
+
+void MainWindow::on_redoButton_triggered() {
+    if (model && model->undoManager)
+        model->undoManager->redo();
+    updateDisplay();
+}

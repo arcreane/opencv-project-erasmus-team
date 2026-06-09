@@ -2,6 +2,11 @@
 #include <opencv2/xphoto.hpp>
 #include <opencv2/photo.hpp>
 
+
+EditorModel::EditorModel() {
+    undoManager = new UndoRedoManager();
+}
+
 bool EditorModel::loadImage(const std::string& path) {
    currentImage = cv::imread(path);
    return !currentImage.empty();
@@ -300,4 +305,9 @@ void EditorModel::applyPerspectiveTransform()
         matrix,
         currentImage.size()
     );
+}
+
+void EditorModel::setCurrentImage(const cv::Mat& img) {
+    currentImage = img.clone();
+    processedImage = img.clone();
 }
