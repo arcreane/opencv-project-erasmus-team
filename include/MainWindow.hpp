@@ -45,9 +45,9 @@ private slots:
   void on_sliderCannyThreshold2_valueChanged(int value);
   void on_btnPencilSketch_clicked();
   void on_btnCartoon_clicked();
-  void on_btnRotate_clicked();
-  void on_btnAffine_clicked();
-  void on_btnPerspective_clicked();
+  void on_sliderRotate_valueChanged(int value);
+  void on_sliderAffine_valueChanged(int value);
+  void on_sliderPerspective_valueChanged(int value);
   void on_btnGrabCut_clicked();
 
 private:

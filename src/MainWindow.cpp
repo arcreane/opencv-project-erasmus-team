@@ -3,6 +3,7 @@
 #include <QFileDialog>
 #include <QMessageBox>
 #include <QApplication>
+#include <QInputDialog>
 
 MainWindow::MainWindow(QWidget* parent)
     : QMainWindow(parent)
@@ -22,6 +23,10 @@ MainWindow::MainWindow(QWidget* parent)
     ui->labelGridValue->setText("8x8");
     ui->labelMorphValue->setText("3x3");
     ui->comboKernelShape->setCurrentIndex(0);
+
+    ui->labelRotateValue->setText("0");
+    ui->labelAffineValue->setText("0.00");
+    ui->labelPerspectiveValue->setText("0.00");
 
     ui->imageLabel->installEventFilter(this);
 }
@@ -398,22 +403,26 @@ void MainWindow::on_btnCartoon_clicked()
     model->applyCartoonEffect();
     updateDisplay();
 }
-
-void MainWindow::on_btnRotate_clicked()
+void MainWindow::on_sliderRotate_valueChanged(int value)
 {
-    model->applyRotate(15.0);
+    ui->labelRotateValue->setText(QString::number(value));
+    model->applyRotate(static_cast<double>(value));
     updateDisplay();
 }
 
-void MainWindow::on_btnAffine_clicked()
+void MainWindow::on_sliderAffine_valueChanged(int value)
 {
-    model->applyAffineTransform();
+    double factor = value / 100.0;
+    ui->labelAffineValue->setText(QString::number(factor, 'f', 2));
+    model->applyAffineTransform(factor);
     updateDisplay();
 }
 
-void MainWindow::on_btnPerspective_clicked()
+void MainWindow::on_sliderPerspective_valueChanged(int value)
 {
-    model->applyPerspectiveTransform();
+    double factor = value / 100.0;
+    ui->labelPerspectiveValue->setText(QString::number(factor, 'f', 2));
+    model->applyPerspectiveTransform(factor);
     updateDisplay();
 }
 
