@@ -1,10 +1,25 @@
 #include "EditorModel.hpp"
 #include <opencv2/xphoto.hpp>
 #include <opencv2/photo.hpp>
-
+#include <opencv2/stitching.hpp>
 bool EditorModel::loadImage(const std::string& path) {
    currentImage = cv::imread(path);
    return !currentImage.empty();
+}
+
+
+bool EditorModel::stitchImages(const std::vector<cv::Mat>& images, cv::Mat& panorama) {
+    if (images.size() < 2) return false;
+
+    cv::Ptr<cv::Stitcher> stitcher = cv::Stitcher::create(cv::Stitcher::PANORAMA);
+
+    cv::Stitcher::Status status = stitcher->stitch(images, panorama);
+
+    if (status != cv::Stitcher::OK) {
+        qDebug() << "Panorama stitching failed!";
+        return false;
+    }
+    return true;
 }
 
 void EditorModel::applyThreshold(int method, int threshValue) {

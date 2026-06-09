@@ -422,3 +422,33 @@ void MainWindow::on_btnGrabCut_clicked()
     isGrabCutMode = true;
     ui->imageLabel->setCursor(Qt::CrossCursor);
 }
+
+void MainWindow::on_stitchButton_clicked() {
+    QStringList fileNames = QFileDialog::getOpenFileNames(
+        this, tr("Select Images for Panorama"), "",
+        tr("Images (*.png *.jpg *.jpeg *.bmp)")
+        );
+
+    if (fileNames.size() < 2) {
+        QMessageBox::warning(this, tr("Panorama"), tr("Please select at least two images."));
+        return;
+    }
+
+    std::vector<cv::Mat> images;
+    for (const QString &file : fileNames) {
+        cv::Mat img = cv::imread(file.toStdString());
+        if (img.empty()) {
+            QMessageBox::warning(this, tr("Panorama"), tr("Failed to load image: %1").arg(file));
+            return;
+        }
+        images.push_back(img);
+    }
+
+    cv::Mat result;
+    if (!model->stitchImages(images, result)) {
+        QMessageBox::warning(this, tr("Panorama"), tr("Stitching failed. Not enough overlap or features."));
+        return;
+    }
+
+    model->setCurrentImage(result); // refresca el canvas
+}
