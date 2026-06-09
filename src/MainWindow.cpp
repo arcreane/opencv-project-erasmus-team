@@ -187,6 +187,7 @@ void MainWindow::on_sliderGridSize_valueChanged(int value)
 
 void MainWindow::on_btnErosion_clicked()
 {
+    currentMorphMethod = 0;
     int val = ui->sliderMorphSize->value();
     int shape = ui->comboKernelShape->currentIndex();
     model->applyMorphology(0, val, shape);
@@ -195,6 +196,7 @@ void MainWindow::on_btnErosion_clicked()
 
 void MainWindow::on_btnDilation_clicked()
 {
+    currentMorphMethod = 1;
     int val = ui->sliderMorphSize->value();
     int shape = ui->comboKernelShape->currentIndex();
     model->applyMorphology(1, val, shape);
@@ -203,6 +205,7 @@ void MainWindow::on_btnDilation_clicked()
 
 void MainWindow::on_btnNoise_clicked()
 {
+    currentMorphMethod = 2;
     int val = ui->sliderMorphSize->value();
     int shape = ui->comboKernelShape->currentIndex();
     model->applyMorphology(2, val, shape);
@@ -211,6 +214,7 @@ void MainWindow::on_btnNoise_clicked()
 
 void MainWindow::on_btnClosing_clicked()
 {
+    currentMorphMethod = 3;
     int val = ui->sliderMorphSize->value();
     int shape = ui->comboKernelShape->currentIndex();
     model->applyMorphology(3, val, shape);
@@ -219,6 +223,7 @@ void MainWindow::on_btnClosing_clicked()
 
 void MainWindow::on_btnGradient_clicked()
 {
+    currentMorphMethod = 4;
     int val = ui->sliderMorphSize->value();
     int shape = ui->comboKernelShape->currentIndex();
     model->applyMorphology(4, val, shape);
@@ -231,14 +236,14 @@ void MainWindow::on_sliderMorphSize_valueChanged(int value)
     ui->labelMorphValue->setText(QString("%1x%1").arg(actualSize));
 
     int shape = ui->comboKernelShape->currentIndex();
-    model->applyMorphology(2, value, shape);
+    model->applyMorphology(currentMorphMethod, value, shape);
     updateDisplay();
 }
 
 void MainWindow::on_comboKernelShape_currentIndexChanged(int index)
 {
     int val = ui->sliderMorphSize->value();
-    model->applyMorphology(2, val, index);
+    model->applyMorphology(currentMorphMethod, val, index);
     updateDisplay();
 }
 

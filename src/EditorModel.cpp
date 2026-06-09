@@ -23,32 +23,45 @@ void EditorModel::applyThreshold(int method, int threshValue) {
 void EditorModel::applyGlobalEqualization() {
     if (currentImage.empty()) return;
 
-    cv::Mat gray;
-
     if (currentImage.channels() == 3) {
-        cv::cvtColor(currentImage, gray, cv::COLOR_BGR2GRAY);
+        cv::Mat ycrcb;
+        cv::cvtColor(currentImage, ycrcb, cv::COLOR_BGR2YCrCb);
+
+        std::vector<cv::Mat> channels;
+        cv::split(ycrcb, channels);
+
+        cv::equalizeHist(channels[0], channels[0]);
+
+        cv::merge(channels, ycrcb);
+
+        cv::cvtColor(ycrcb, processedImage, cv::COLOR_YCrCb2BGR);
     }
     else {
-        gray = currentImage.clone();
+        cv::equalizeHist(currentImage, processedImage);
     }
-
-    cv::equalizeHist(gray, processedImage);
 }
 
 void EditorModel::applyCLAHE(double clipLimit, int gridSize) {
     if (currentImage.empty()) return;
 
-    cv::Mat gray;
-    if (currentImage.channels() == 3) {
-        cv::cvtColor(currentImage, gray, cv::COLOR_BGR2GRAY);
-    }
-    else {
-        gray = currentImage.clone();
-    }
-
     cv::Ptr<cv::CLAHE> clahe = cv::createCLAHE(clipLimit, cv::Size(gridSize, gridSize));
 
-    clahe->apply(gray, processedImage);
+    if (currentImage.channels() == 3) {
+        cv::Mat ycrcb;
+        cv::cvtColor(currentImage, ycrcb, cv::COLOR_BGR2YCrCb);
+
+        std::vector<cv::Mat> channels;
+        cv::split(ycrcb, channels);
+
+        clahe->apply(channels[0], channels[0]);
+
+        cv::merge(channels, ycrcb);
+
+        cv::cvtColor(ycrcb, processedImage, cv::COLOR_YCrCb2BGR);
+    }
+    else {
+        clahe->apply(currentImage, processedImage);
+    }
 }
 
 void EditorModel::applyMorphology(int method, int kernelSize, int shapeType)
@@ -130,6 +143,7 @@ void EditorModel::applyWhiteBalance(int method) {
         wb->balanceWhite(currentImage, processedImage);
     }
 }
+
 
 void EditorModel::applyKMeans(int k) {
     if (currentImage.empty()) return;
